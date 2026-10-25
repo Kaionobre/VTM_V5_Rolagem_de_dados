@@ -1,50 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rolagem de Dados - Vampiro</title>
+    <link rel="icon" href="static/img/icon.png">
     <link rel="stylesheet" href="static/css/style.css">
-    
 </head>
 
 <body>
-    <div class="container">
-        <!-- Imagem -->
-        <img src="static/img/logo_white.svg" alt="Logo Vampiro" width="270px">
+    <main class="container">
+        <img src="static/img/logo_white.svg" alt="Vampiro: A Máscara" class="logo">
 
-        <!-- Título -->
-        <h1 class="titulo">Rolagem de Dados - Vampiro</h1>
+        <h1 class="titulo">Rolagem de Dados</h1>
 
-        <!-- Formulário -->
-        <form id="dice-form">
-            <div class="form-group">
-                <label for="dados">Quantidade Total de Dados:</label>
-                <input type="number" id="dados" name="dados" min="1" value="1" required placeholder="Ex.: 5">
+        <form id="dice-form" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dados">Parada de Dados</label>
+                    <input type="number" id="dados" name="dados" min="1" max="30" value="5" required inputmode="numeric">
+                </div>
+                <div class="form-group">
+                    <label for="fome">Fome</label>
+                    <input type="number" id="fome" name="fome" min="0" max="5" value="1" required inputmode="numeric">
+                </div>
+                <div class="form-group">
+                    <label for="dificuldade">Dificuldade</label>
+                    <input type="number" id="dificuldade" name="dificuldade" min="0" max="20" value="3" required inputmode="numeric">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="fome">Quantidade de Dados de Fome:</label>
-                <input type="number" id="fome" name="fome" min="0" max="5" value="0" required placeholder="Máximo 5">
+            <p class="form-error" id="form-error" role="alert"></p>
+            <div class="actions">
+                <button type="submit">Rolar Dados</button>
+                <button type="button" id="rouse-btn" class="secondary">Teste de Despertar</button>
             </div>
-            <div class="form-group">
-                <label for="dificuldade">Dificuldade:</label>
-                <input type="number" id="dificuldade" name="dificuldade" min="1" value="3" required
-                    placeholder="Ex.: 3">
-            </div>
-            <button type="button" onclick="rollDice()">Rolar Dados</button>
         </form>
 
-        <!-- Contêiner dos Dados -->
+        <p class="rouse-result" id="rouse-result" aria-live="polite"></p>
+
         <div class="dice-container" id="dice-container"></div>
 
+        <div class="willpower" id="willpower" hidden>
+            <p>Força de Vontade: selecione até 3 dados normais para rerrolar.</p>
+            <button type="button" id="reroll-btn" class="secondary" disabled>Rerrolar (0/3)</button>
+        </div>
 
-        <div class="results" id="results"></div>
-    </div>
+        <section class="results" id="results" aria-live="polite" hidden></section>
 
+        <section class="history" id="history" hidden>
+            <div class="history-header">
+                <h2>Histórico</h2>
+                <button type="button" id="clear-history" class="link">Limpar</button>
+            </div>
+            <ol id="history-list"></ol>
+        </section>
+    </main>
+
+    <script src="static/js/v5.js"></script>
     <script src="static/js/script.js"></script>
-
-
 </body>
 
 </html>
